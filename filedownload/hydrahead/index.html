@@ -1,0 +1,41 @@
+
+<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+
+<button type="button" onclick="sendPost();">Send post</button>
+
+<script>
+    
+    function sendPost(){
+        
+        var data = {};
+        data["species"] = "human";
+        data["searchterm"] = "brain";
+        data["search_samples"] = ["GSM678413","GSM678414","GSM741170","GSM741171","GSM741172","GSM742937","GSM742938"];
+        
+        // Use XMLHttpRequest instead of Jquery $ajax
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            var a;
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
+                // Trick for making downloadable link
+                a = document.createElement('a');
+                a.href = window.URL.createObjectURL(xhttp.response);
+                // Give filename you wish to download
+                a.download = data["species"]+"_"+data["searchterm"]+"_expression.zip";
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+            }
+        };
+        // Post data to URL which handles post request
+        xhttp.open("POST", "https://amp.pharm.mssm.edu/archs4hdf/data");
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        // You should set responseType as blob for binary responses
+        xhttp.responseType = 'blob';
+        xhttp.send(JSON.stringify(data));
+    }
+
+</script>
