@@ -1,3 +1,3 @@
 # LINK API
 
-useful functions to allow interactivity with the ARHCS4 website. Also includes the file download function.
+Useful functions to allow interactivity with the ARCHS4 website. Also in bundels ludes the file download function.
